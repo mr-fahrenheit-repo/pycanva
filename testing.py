@@ -55,7 +55,7 @@ def batch():
             try:
                 df = pd.read_excel(dbs)
                 if set(df.columns) == set(['email', 'password', 'country', 'vpn_code', 'premium']):
-                    print("***************** DONE YA BANG! *****************\n")
+                    print("***************** DONE YA BANG! *****************")
                     break
                 else:
                     print("Please provide the correct database!")
@@ -63,7 +63,7 @@ def batch():
             except:
                 print("Please provide the correct database!")
             else:
-                print("***************** DONE YA BANG! *****************\n")
+                print("***************** DONE YA BANG! *****************")
                 break
         elif confirm == 'n':
             pass
@@ -103,7 +103,7 @@ def username():
             if start == '0':
                 pass
             else:
-                print("***************** DONE YA BANG! *****************\n")
+                print("***************** DONE YA BANG! *****************")
                 break
         elif user == 1:
             user = "Fitra"
@@ -113,7 +113,7 @@ def username():
             if start == '0':
                 pass
             else:
-                print("***************** DONE YA BANG! *****************\n")
+                print("***************** DONE YA BANG! *****************")
                 break
         else:
             print("Please input the correct username!")
