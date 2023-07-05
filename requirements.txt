@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 pandas==2.0.3
 PyAutoGUI==0.9.54
 termcolor==2.3.0
+=======
+pandas==2.0.3
+PyAutoGUI==0.9.54
+termcolor==2.3.0
+>>>>>>> 2be5804e35e4a30db48e2e5d63a435c374d88dfe
