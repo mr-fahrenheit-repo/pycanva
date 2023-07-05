@@ -74,7 +74,7 @@ def batch():
     return df
 
 # Random choose account from account dataframe
-def account(df):
+def accounts(df):
     email_account = random.choice(df['email'])
     index = df.index[df['email'] ==  email_account][0]
     password_account = df.loc[index, 'password']
@@ -248,7 +248,7 @@ def main():
     for x in range(len(account_data)):
         date = time_stamp('date')
         start = time_stamp('time')
-        account =  account(account_data)
+        account =  accounts(account_data)
         vpn(account['vpn'])
         hold(7,9)
         openchrome()
