@@ -1,4 +1,3 @@
-# Import Libraries
 import pyautogui
 import time
 import random

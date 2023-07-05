@@ -2,6 +2,7 @@
 import imaplib
 import email
 
+
 def get_email_code():
     # from credentials.yml import user name and password
     my_credentials = {
