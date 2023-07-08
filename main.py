@@ -3,6 +3,7 @@ import pyautogui
 import time
 import random
 import os
+import glob
 import pandas as pd
 import datetime
 from termcolor import colored
@@ -41,36 +42,33 @@ def input_log(numb_index, df, user, date, start, end, account, download):
 
 # Loading account dataframe
 def batch():
+    print(colored(text="Scanning databases in directory", color="green"))
+    directory = os.getcwd()
+    search_pattern = os.path.join(directory, f"*.xlsx")
+    files = glob.glob(search_pattern)
     while True:
-        print("Please provide the path to the account database!")
-        dbs_input = input()
-        dbs = dbs_input.replace('"', '')
-        print("The provided database path is ===>", colored(dbs, 'red', attrs=['reverse', 'blink']))
-        time.sleep(1)
-        print("Are you sure?\n[y] - Yes\n[n] - No")
-        confirm = input()
-        if confirm == 'y':
-            print("Processing...")
-            time.sleep(1)
+        for i,file in enumerate(files):
+            substrings = file.split("\\")
+            time.sleep(0.5)
+            print(f"[{i}] -",substrings[-1])
+        index = input(colored(text="Please provide the account database to be executed! ", color="yellow"))
+        try:
+            selected_files = files[int(index)]
+        except:
+            print("Please provide the correct database")
+            pass
+        else:
             try:
-                df = pd.read_excel(dbs)
+                df = pd.read_excel(selected_files)
                 if set(df.columns) == set(['email', 'password', 'country', 'vpn_code', 'premium']):
-                    print("***************** DONE YA BANG! *****************\n")
+                    print("**************************************** DONE YA BANG! ***************************************\n")
                     break
                 else:
                     print("Please provide the correct database!")
                     pass
             except:
                 print("Please provide the correct database!")
-            else:
-                print("***************** DONE YA BANG! *****************\n")
-                break
-        elif confirm == 'n':
-            pass
-        else:
-            print("Please provide the correct answer!")
-            time.sleep(2)
-            pass
+                pass
     return df
 
 # Random choose account from account dataframe
@@ -88,13 +86,12 @@ def accounts(df):
 
 # Username input 
 def username():
-    print("Before starting the program you have to choose username based on options provided down below.")
+    print(colored(text="Before starting the program you have to choose username based on options provided down below.", color="green"))
     time.sleep(0.75)
     print("[0] - Rifky\n[1] - Fitra")
     time.sleep(0.75)
     while True:
-        print("Please enter your username!")
-        user = int(input())
+        user = int(input(colored(text="Please enter your username! ", color="yellow")))
         if user == 0:
             user = "Rifky"
             print(f"Welcome {user}")
@@ -103,7 +100,7 @@ def username():
             if start == '0':
                 pass
             else:
-                print("***************** DONE YA BANG! *****************\n")
+                print("**************************************** DONE YA BANG! ***************************************\n")
                 break
         elif user == 1:
             user = "Fitra"
@@ -113,7 +110,7 @@ def username():
             if start == '0':
                 pass
             else:
-                print("***************** DONE YA BANG! *****************\n")
+                print("**************************************** DONE YA BANG! ***************************************\n")
                 break
         else:
             print("Please input the correct username!")
@@ -239,23 +236,24 @@ def download():
 
 # Main Program
 def main():
-    print("***************** PyCanva v1.0.0 *****************")
-    print("*************** User Configuration ***************")
+    print("*************************************** PyCanva v1.0.0 ***************************************")
+    print("************************************* User Configuration *************************************")
     user = username()
     account_data = batch()
     df_log = log()
-    print("**************** Automation Start ****************")
+    print("************************************** Automation Start **************************************")
+    print(colored(text="To stop the program from running you can press 'ctrl' + 'q' on your keyboard.", color="red"))
     for x in range(len(account_data)):
         date = time_stamp('date')
         start = time_stamp('time')
         account =  accounts(account_data)
         vpn(account['vpn'])
-        hold(7,9)
+        hold(10,15)
         openchrome()
-        hold(3,5)
+        hold(10,15)
         opencanva()
-        hold(2,3)
-        allowcookies()
+        hold(7,9)
+        # allowcookies()
         hold(0.75,1.5)
         login(account['email'], account['password'])
         hold(7,9)
@@ -272,6 +270,6 @@ def main():
     df_name = f"Download_log_{str(date)}_user_{user}"
     df_log.to_excel(f"{df_name}.xlsx")
     
-# Looping the process for eternity :)
+# Running the code
 if __name__ == '__main__':
     main()
